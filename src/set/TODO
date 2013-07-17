@@ -1,0 +1,12 @@
+IsSubset
+IsSuperset
+Difference
+SymmetricDifference
+Copy
+IsDisjoint
+Slice
+Sorted
+Pop
+Clear
+Remove
+Discard

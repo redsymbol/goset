@@ -1,0 +1,44 @@
+go set - Set operations in Go
+
+Go does not include a set data type. When set functionality is needed,
+currently most people implement something with a map. This package
+provides a more readable, maintainable, and pleasant alternative: a
+real Set type, featuring useful, intuitive methods.
+
+USAGE
+
+{{{
+package main
+import (
+    "fmt"
+    "github.com/redsymbol/goset/set"
+)
+
+func main() {
+     foo := set.NewSet("alpha", "delta")
+     bar := set.NewSet("gamma", "delta", "eta")
+     foo.Add("epsilon")
+     bar.Delete("eta")
+     fooAndBar := foo.Intersect(bar)
+     fooOrBar := foo.Union(bar)
+     if fooAndBar.Contains("delta") {
+         fmt.Println("delta in both foo and bar")
+     }
+}
+}}}
+
+At the moment, operations are NOT atomic, meaning it is not
+necessarily safe to access a set from multiple goroutines. This will
+likely change in the future, with an optional synchronized version of
+the set type.
+
+LICENSE
+
+All code here is in the public domain.
+
+AUTHOR
+
+Aaron Maxwell (amax AT redsymbol DOT net). If you are the type of
+programmer reading this, I will probably love getting email from you,
+so don't hesitate to reach out with feedback, questions, etc.
+Pull requests too!
