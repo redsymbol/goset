@@ -64,7 +64,10 @@ func (s *Set) Union(other *Set) *Set {
 }
 
 func NewSet(items ...string) *Set {
-	s := Set{make(map[string]*struct{}), new(sync.Mutex)};
+	s := Set{
+		make(map[string]*struct{}),
+		new(sync.Mutex),
+	};
 	for _, item := range items {
 		s.Add(item)
 	}
