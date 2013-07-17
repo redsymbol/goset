@@ -18,7 +18,7 @@ func main() {
      foo := set.NewSet("alpha", "delta")
      bar := set.NewSet("gamma", "delta", "eta")
      foo.Add("epsilon")
-     bar.Delete("eta")
+     bar.Discard("eta")
      fooAndBar := foo.Intersect(bar)
      fooOrBar := foo.Union(bar)
      if fooAndBar.Contains("delta") {

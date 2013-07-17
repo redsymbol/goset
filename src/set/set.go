@@ -15,7 +15,7 @@ func (s *Set) Add(item string) {
 	s.items[item] = nil
 }
 
-func (s *Set) Delete(item string) {
+func (s *Set) Discard(item string) {
 	delete(s.items, item)
 }
 

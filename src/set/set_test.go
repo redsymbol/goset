@@ -20,7 +20,7 @@ func TestSet(t *testing.T) {
 	
 	bar := NewSet("gamma", "delta", "eta")
 	Assert(t, bar.Contains("eta"))
-	bar.Delete("eta")
+	bar.Discard("eta")
 	Assert(t, ! bar.Contains("eta"))
 	
 	fooAndBar := foo.Intersect(bar)
