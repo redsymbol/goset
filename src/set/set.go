@@ -7,7 +7,7 @@ import (
 
 type Set struct {
 	items map[string]*struct{};
-	mutex *sync.Mutex
+	lock *sync.Mutex
 }
 
 func (s *Set) Contains(item string) bool {
@@ -30,8 +30,8 @@ func (s *Set) Discard(item string) {
    If the item is not in the set, panic.
 */
 func (s *Set) Remove(item string) {
-	s.mutex.Lock()
-	defer s.mutex.Unlock()
+	s.lock.Lock()
+	defer s.lock.Unlock()
 	if ! s.Contains(item) {
 		panic(fmt.Sprintf("Set does not contain \"%v\"", item))
 	}
