@@ -15,6 +15,9 @@ func (s *Set) Add(item string) {
 	s.items[item] = nil
 }
 
+/* Delete the item from the set, if it's in.
+   If the item is not in the set, do nothing.
+*/
 func (s *Set) Discard(item string) {
 	delete(s.items, item)
 }
