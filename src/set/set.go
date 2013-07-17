@@ -3,7 +3,19 @@ package set
 import (
 	"fmt"
 	"sync"
+	"sort"
 )
+
+func NewSet(items ...string) *Set {
+	s := Set{
+		make(map[string]*struct{}),
+		new(sync.Mutex),
+	};
+	for _, item := range items {
+		s.Add(item)
+	}
+	return &s
+}
 
 type Set struct {
 	items map[string]*struct{};
@@ -63,13 +75,18 @@ func (s *Set) Union(other *Set) *Set {
 	return newset
 }
 
-func NewSet(items ...string) *Set {
-	s := Set{
-		make(map[string]*struct{}),
-		new(sync.Mutex),
-	};
-	for _, item := range items {
-		s.Add(item)
+func (s *Set) Slice() []string {
+	slice := make([]string, len(s.items))
+	var ii int
+	for item, _ := range s.items {
+		slice[ii] = item
+		ii += 1
 	}
-	return &s
+	return slice
+}
+
+func (s *Set) Sorted() []string {
+	slice := s.Slice()
+	sort.Strings(slice)
+	return slice
 }

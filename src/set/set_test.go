@@ -10,8 +10,20 @@ func Assert(t *testing.T, cond bool) {
 	}
 }
 
+func AssertSliceEqual(t *testing.T, a *[]string, b *[]string) {
+	if len(*a) != len(*b) {
+		t.Fail()
+	}
+	var ii int
+	for ii = 0; ii < len(*a); ii++ {
+		if (*a)[ii] != (*b)[ii] {
+			t.Fail()
+		}
+	}
+}
+
 func TestSet(t *testing.T) {
-	foo := NewSet("alpha", "delta")
+	foo := NewSet("delta", "alpha")
 	Assert(t, foo.Contains("alpha"))
 	Assert(t, ! foo.Contains("epsilon"))
 	foo.Add("epsilon")
@@ -29,4 +41,8 @@ func TestSet(t *testing.T) {
 	Assert(t, 1 == fooAndBar.Len())
 	fooOrBar := foo.Union(bar)
 	Assert(t, 4 == fooOrBar.Len())
+
+	expected := []string{"alpha", "delta", "epsilon"}
+	actual := foo.Sorted()
+	AssertSliceEqual(t, &expected, &actual)
 }
