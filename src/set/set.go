@@ -1,9 +1,7 @@
 package set
 
-type marker struct{}
-
 type Set struct {
-	items map[string]*marker;
+	items map[string]*struct{};
 }
 
 func (s *Set) Contains(item string) bool {
@@ -48,7 +46,7 @@ func (s *Set) Union(other *Set) *Set {
 }
 
 func NewSet(items ...string) *Set {
-	s := Set{make(map[string]*marker)};
+	s := Set{make(map[string]*struct{})};
 	for _, item := range items {
 		s.Add(item)
 	}
