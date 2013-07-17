@@ -5,6 +5,9 @@ currently most people implement something with a map. This package
 provides a more readable, maintainable, and pleasant alternative: a
 real Set type, featuring useful, intuitive methods.
 
+[Nota Bene: Right now it only works with sets of strings.  Please
+stand by for sets of other types - that is high on the priority list!]
+
 USAGE
 
 {{{
@@ -15,6 +18,7 @@ import (
 )
 
 func main() {
+     /* Always create new sets with set.NewSet */
      foo := set.NewSet("alpha", "delta")
      bar := set.NewSet("gamma", "delta", "eta")
      foo.Add("epsilon")
