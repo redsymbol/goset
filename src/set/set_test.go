@@ -20,6 +20,8 @@ func TestSet(t *testing.T) {
 	
 	bar := NewSet("gamma", "delta", "eta")
 	Assert(t, bar.Contains("eta"))
+	bar.Remove("eta")
+	bar.Discard("eta")
 	bar.Discard("eta")
 	Assert(t, ! bar.Contains("eta"))
 	

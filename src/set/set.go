@@ -1,7 +1,13 @@
 package set
 
+import (
+	"fmt"
+	"sync"
+)
+
 type Set struct {
 	items map[string]*struct{};
+	mutex *sync.Mutex
 }
 
 func (s *Set) Contains(item string) bool {
@@ -17,6 +23,18 @@ func (s *Set) Add(item string) {
    If the item is not in the set, do nothing.
 */
 func (s *Set) Discard(item string) {
+	delete(s.items, item)
+}
+
+/* Delete the item from the set, if it's in.
+   If the item is not in the set, panic.
+*/
+func (s *Set) Remove(item string) {
+	s.mutex.Lock()
+	defer s.mutex.Unlock()
+	if ! s.Contains(item) {
+		panic(fmt.Sprintf("Set does not contain \"%v\"", item))
+	}
 	delete(s.items, item)
 }
 
@@ -46,7 +64,7 @@ func (s *Set) Union(other *Set) *Set {
 }
 
 func NewSet(items ...string) *Set {
-	s := Set{make(map[string]*struct{})};
+	s := Set{make(map[string]*struct{}), new(sync.Mutex)};
 	for _, item := range items {
 		s.Add(item)
 	}
