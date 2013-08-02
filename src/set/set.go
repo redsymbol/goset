@@ -6,9 +6,9 @@ import (
 	"sort"
 )
 
-func NewSet(items ...string) *Set {
+func NewSet(items ...interface{}) *Set {
 	s := Set{
-		make(map[string]*struct{}),
+		make(map[interface{}]*struct{}),
 		new(sync.Mutex),
 	};
 	for _, item := range items {
@@ -18,30 +18,30 @@ func NewSet(items ...string) *Set {
 }
 
 type Set struct {
-	items map[string]*struct{};
+	items map[interface{}]*struct{};
 	lock *sync.Mutex
 }
 
-func (s *Set) Contains(item string) bool {
+func (s *Set) Contains(item interface{}) bool {
 	_, ok := s.items[item]
 	return ok
 }
 
-func (s *Set) Add(item string) {
+func (s *Set) Add(item interface{}) {
 	s.items[item] = nil
 }
 
 /* Delete the item from the set, if it's in.
    If the item is not in the set, do nothing.
 */
-func (s *Set) Discard(item string) {
+func (s *Set) Discard(item interface{}) {
 	delete(s.items, item)
 }
 
 /* Delete the item from the set, if it's in.
    If the item is not in the set, panic.
 */
-func (s *Set) Remove(item string) {
+func (s *Set) Remove(item interface{}) {
 	s.lock.Lock()
 	defer s.lock.Unlock()
 	if ! s.Contains(item) {
@@ -75,8 +75,8 @@ func (s *Set) Union(other *Set) *Set {
 	return newset
 }
 
-func (s *Set) Slice() []string {
-	slice := make([]string, len(s.items))
+func (s *Set) Slice() []interface{} {
+	slice := make([]interface{}, len(s.items))
 	var ii int
 	for item, _ := range s.items {
 		slice[ii] = item
@@ -86,7 +86,15 @@ func (s *Set) Slice() []string {
 }
 
 func (s *Set) Sorted() []string {
-	slice := s.Slice()
-	sort.Strings(slice)
-	return slice
+	strslice := make([]string, len(s.items))
+	for ii, val := range s.Slice() {
+		switch val.(type) {
+		case string:
+			strslice[ii] = val.(string)
+		default:
+			strslice[ii] = fmt.Sprintf("%v", val)
+		}
+	}
+	sort.Strings(strslice)
+	return strslice
 }

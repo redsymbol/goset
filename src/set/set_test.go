@@ -22,13 +22,13 @@ func AssertSliceEqual(t *testing.T, a *[]string, b *[]string) {
 	}
 }
 
-func TestSet(t *testing.T) {
-	foo := NewSet("delta", "alpha")
-	Assert(t, foo.Contains("alpha"))
-	Assert(t, ! foo.Contains("epsilon"))
-	foo.Add("epsilon")
-	Assert(t, foo.Contains("epsilon"))
-	Assert(t, 3 == foo.Len())
+func TestSetString(t *testing.T) {
+	bag := NewSet("delta", "alpha")
+	Assert(t, bag.Contains("alpha"))
+	Assert(t, ! bag.Contains("epsilon"))
+	bag.Add("epsilon")
+	Assert(t, bag.Contains("epsilon"))
+	Assert(t, 3 == bag.Len())
 	
 	bar := NewSet("gamma", "delta", "eta")
 	Assert(t, bar.Contains("eta"))
@@ -37,12 +37,23 @@ func TestSet(t *testing.T) {
 	bar.Discard("eta")
 	Assert(t, ! bar.Contains("eta"))
 	
-	fooAndBar := foo.Intersect(bar)
-	Assert(t, 1 == fooAndBar.Len())
-	fooOrBar := foo.Union(bar)
-	Assert(t, 4 == fooOrBar.Len())
+	bagAndBar := bag.Intersect(bar)
+	Assert(t, 1 == bagAndBar.Len())
+	bagOrBar := bag.Union(bar)
+	Assert(t, 4 == bagOrBar.Len())
 
 	expected := []string{"alpha", "delta", "epsilon"}
-	actual := foo.Sorted()
+	actual := bag.Sorted()
 	AssertSliceEqual(t, &expected, &actual)
+}
+
+func TestSetMixed (t *testing.T) {
+	bag := NewSet("alpha", 42)
+	bag.Add(32)
+	bag.Add("beta")
+
+	Assert(t, bag.Contains("alpha"))
+	Assert(t, bag.Contains("beta"))
+	Assert(t, bag.Contains(32))
+	Assert(t, bag.Contains(42))
 }
