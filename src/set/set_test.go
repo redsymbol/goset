@@ -6,7 +6,7 @@ import (
 )
 
 func Assert(t *testing.T, cond bool) {
-	if ! cond {
+	if !cond {
 		t.Fail()
 	}
 }
@@ -28,18 +28,18 @@ func AssertSliceEqual(t *testing.T, a *[]string, b *[]string) {
 func TestSetString(t *testing.T) {
 	bag := NewSet("delta", "alpha")
 	Assert(t, bag.Contains("alpha"))
-	Assert(t, ! bag.Contains("epsilon"))
+	Assert(t, !bag.Contains("epsilon"))
 	bag.Add("epsilon")
 	Assert(t, bag.Contains("epsilon"))
 	Assert(t, 3 == bag.Len())
-	
+
 	bar := NewSet("gamma", "delta", "eta")
 	Assert(t, bar.Contains("eta"))
 	bar.Remove("eta")
 	bar.Discard("eta")
 	bar.Discard("eta")
-	Assert(t, ! bar.Contains("eta"))
-	
+	Assert(t, !bar.Contains("eta"))
+
 	bagAndBar := bag.Intersect(bar)
 	Assert(t, 1 == bagAndBar.Len())
 	bagOrBar := bag.Union(bar)
@@ -50,7 +50,7 @@ func TestSetString(t *testing.T) {
 	AssertSliceEqual(t, &expected, &actual)
 }
 
-func TestSetMixed (t *testing.T) {
+func TestSetMixed(t *testing.T) {
 	bag := NewSet("alpha", 42)
 	bag.Add(32)
 	bag.Add("beta")

@@ -2,15 +2,15 @@ package set
 
 import (
 	"fmt"
-	"sync"
 	"sort"
+	"sync"
 )
 
 func NewSet(items ...interface{}) *Set {
 	s := Set{
 		make(map[interface{}]*struct{}),
 		new(sync.Mutex),
-	};
+	}
 	for _, item := range items {
 		s.Add(item)
 	}
@@ -18,8 +18,8 @@ func NewSet(items ...interface{}) *Set {
 }
 
 type Set struct {
-	items map[interface{}]*struct{};
-	lock *sync.Mutex
+	items map[interface{}]*struct{}
+	lock  *sync.Mutex
 }
 
 func (s *Set) Contains(item interface{}) bool {
@@ -44,7 +44,7 @@ func (s *Set) Discard(item interface{}) {
 func (s *Set) Remove(item interface{}) {
 	s.lock.Lock()
 	defer s.lock.Unlock()
-	if ! s.Contains(item) {
+	if !s.Contains(item) {
 		panic(fmt.Sprintf("Set does not contain \"%v\"", item))
 	}
 	delete(s.items, item)
