@@ -1,6 +1,7 @@
 package set
 
 import (
+	"fmt"
 	"testing"
 )
 
@@ -16,8 +17,10 @@ func AssertSliceEqual(t *testing.T, a *[]string, b *[]string) {
 	}
 	var ii int
 	for ii = 0; ii < len(*a); ii++ {
-		if (*a)[ii] != (*b)[ii] {
-			t.Fail()
+		aval := (*a)[ii]
+		bval := (*b)[ii]
+		if aval != bval {
+			t.Log(fmt.Sprintf("'%v' != '%v' at index %d", aval, bval, ii))
 		}
 	}
 }
@@ -58,4 +61,15 @@ func TestSetMixed (t *testing.T) {
 	Assert(t, bag.Contains(32))
 	Assert(t, bag.Contains(42))
 	Assert(t, bag.Contains(2.7))
+
+	// check sorting
+	expected := []string{
+		"2.7",
+		"32",
+		"42",
+		"alpha",
+		"beta",
+	}
+	actual := bag.Sorted()
+	AssertSliceEqual(t, &expected, &actual)
 }
