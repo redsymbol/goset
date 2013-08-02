@@ -51,9 +51,11 @@ func TestSetMixed (t *testing.T) {
 	bag := NewSet("alpha", 42)
 	bag.Add(32)
 	bag.Add("beta")
+	bag.Add(2.7)
 
 	Assert(t, bag.Contains("alpha"))
 	Assert(t, bag.Contains("beta"))
 	Assert(t, bag.Contains(32))
 	Assert(t, bag.Contains(42))
+	Assert(t, bag.Contains(2.7))
 }
