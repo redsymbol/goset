@@ -1,9 +1,9 @@
 go set - Set operations in Go
 
-Go does not include a set data type. When set functionality is needed,
-currently most people implement something with a map. This package
-provides a more readable, maintainable, and pleasant alternative: a
-real Set type, featuring useful, intuitive methods.
+Go 1.1 does not include a set data type. When set functionality is
+needed, currently most people implement something with a map. This
+package provides a more readable, maintainable, and pleasant
+alternative: a real Set type, featuring useful, intuitive methods.
 
 USAGE
 
@@ -44,4 +44,3 @@ AUTHOR
 Aaron Maxwell (amax AT redsymbol DOT net). If you are the type of
 programmer reading this, I will probably love getting email from you,
 so don't hesitate to reach out with feedback, questions, etc.
-Pull requests too!
