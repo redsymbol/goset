@@ -89,3 +89,22 @@ func TestSubset(t *testing.T) {
 	Assert(t, alpha.IsSupersetOf(empty))
 	Assert(t, ! empty.IsSupersetOf(alpha))
 }
+
+func TestEquals(t *testing.T) {
+	alpha := NewSet(2, 3, 4, 5)
+	beta := NewSet(2, 4, 3, 5)
+	gamma := NewSet(2, 3, 4)
+	delta := NewSet(2, 3, 4, 5, 6)
+
+	Assert(t, alpha.Equals(beta))
+	Assert(t, beta.Equals(alpha))
+	Assert(t, ! alpha.Equals(gamma))
+	Assert(t, ! alpha.Equals(delta))
+}
+
+func TestCopy(t *testing.T) {
+	src := NewSet(4, 7, "foo", "bar")
+	clone := src.Copy()
+
+	Assert(t, src.Equals(clone))
+}

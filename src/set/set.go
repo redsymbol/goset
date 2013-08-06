@@ -183,3 +183,29 @@ func (s *Set) IsSupersetOf(other *Set) bool {
 	}
 	return true
 }
+
+/*
+Create and return a shallow copy of this set.
+*/
+func (s *Set) Copy() *Set {
+	clone := NewSet()
+	for item, _ := range s.items {
+		clone.Add(item)
+	}
+	return clone
+}
+
+/*
+True iff this set has the same members as the other set.
+*/
+func (s *Set) Equals(other *Set) bool {
+	if s.Len() == other.Len() {
+		for item, _ := range s.items {
+			if ! other.Contains(item) {
+				return false
+			}
+		}
+		return true
+	}
+	return false
+}
