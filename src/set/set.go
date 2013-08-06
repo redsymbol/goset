@@ -159,3 +159,27 @@ func (s *Set) Sorted() []string {
 	sort.Strings(strslice)
 	return strslice
 }
+
+/*
+True iff every member of this set is in other.
+*/
+func (s *Set) IsSubsetOf(other *Set) bool {
+	for item, _ := range s.items {
+		if ! other.Contains(item) {
+			return false
+		}
+	}
+	return true
+}
+
+/*
+True iff ever member of other set is in this set.
+*/
+func (s *Set) IsSupersetOf(other *Set) bool {
+	for item, _ := range other.items {
+		if ! s.Contains(item) {
+			return false
+		}
+	}
+	return true
+}

@@ -73,3 +73,19 @@ func TestSetMixed(t *testing.T) {
 	actual := bag.Sorted()
 	AssertSliceEqual(t, &expected, &actual)
 }
+
+func TestSubset(t *testing.T) {
+	alpha := NewSet(7, 3, 2, 1)
+	beta := NewSet(7, 2)
+	gamma := NewSet(7, 3, 2, 9)
+	empty := NewSet()
+
+	Assert(t, beta.IsSubsetOf(alpha))
+	Assert(t, alpha.IsSupersetOf(beta))
+	Assert(t, ! gamma.IsSubsetOf(alpha))
+
+	Assert(t, empty.IsSubsetOf(empty))
+	Assert(t, empty.IsSupersetOf(empty))
+	Assert(t, alpha.IsSupersetOf(empty))
+	Assert(t, ! empty.IsSupersetOf(alpha))
+}
