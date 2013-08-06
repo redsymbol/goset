@@ -6,7 +6,9 @@ import (
 )
 
 /*
-Basic set type. Create new objects with NewSet.
+Basic set type.
+
+Rather than instantiating directly, create new set objects with NewSet.
 
 Not safe for concurrent access, so you must wrap operations with a
 lock if accessing from multiple goroutines.
@@ -121,7 +123,7 @@ func (s *Set) Union(other *Set) *Set {
 /*
 Create a slice consisting of the elements in the set.
 
-Useful if you need to use function requiring the set data in slice form.
+Useful if you need to pass the set data to a function that requires a slice.
 
 The order is undefined. See also Sorted.
 
@@ -173,7 +175,7 @@ func (s *Set) IsSubsetOf(other *Set) bool {
 }
 
 /*
-True iff ever member of other set is in this set.
+True iff every member of other set is in this set.
 */
 func (s *Set) IsSupersetOf(other *Set) bool {
 	for item, _ := range other.items {
