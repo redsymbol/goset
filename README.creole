@@ -5,13 +5,17 @@ needed, currently most people implement something with a map. This
 package provides a more readable, maintainable, and pleasant
 alternative: a real Set type, featuring useful, intuitive methods.
 
+INSTALLATION
+
+go get github.com/redsymbol/goset
+
 USAGE
 
 {{{
 package main
 import (
     "fmt"
-    "github.com/redsymbol/goset/set"
+    set "github.com/redsymbol/goset"
 )
 
 func main() {
