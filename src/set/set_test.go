@@ -137,3 +137,10 @@ func TestPop(t *testing.T) {
 	bar.Pop()
 	Assert(t, 0 == bar.Len())
 }
+
+func TestClear(t *testing.T) {
+	foo := NewSet(2, 4, 6, 8, "who do we appreciate")
+	Assert(t, foo.Len() > 0)
+	foo.Clear()
+	Assert(t, foo.Len() == 0)
+}

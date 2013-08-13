@@ -238,3 +238,10 @@ func (s *Set) Pop() interface{} {
 	delete(s.items, item)
 	return item
 }
+
+/*
+Remove all items from the set, making it empty.
+*/
+func (s *Set) Clear() {
+	s.items = make(map[interface{}]*struct{})
+}
