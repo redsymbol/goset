@@ -5,6 +5,9 @@ needed, currently most people implement something with a map. This
 package provides a more readable, maintainable, and pleasant
 alternative: a real Set type, featuring useful, intuitive methods.
 
+Feedback is appreciated - please see the AUTHOR section at the end for
+how to get in touch.
+
 INSTALLATION
 
 go get github.com/redsymbol/goset
@@ -38,6 +41,116 @@ At the moment, operations are NOT atomic, meaning it is not
 necessarily safe to access a set from multiple goroutines. This will
 likely change in the future, with an optional synchronized version of
 the set type.
+
+REFERENCE
+
+type Set struct {
+    // contains filtered or unexported fields
+}
+    Basic set type.
+
+    Rather than instantiating directly, create new set objects with NewSet.
+
+    Not safe for concurrent access, so you must wrap operations with a lock
+    if accessing from multiple goroutines.
+
+
+func NewSet(items ...interface{}) *Set
+    Create a new Set object. Arguments ITEMS... will be the initial members
+    of the set.
+
+	Examples:
+	   emptySet := NewSet()
+	   intsSet  := NewSet(7, 12, 42)
+	   mixedSet := NewSet("foo", "bar", 42, 2.818)
+
+
+func (s *Set) Add(item interface{})
+    Add an item to the set.
+
+    If the item already exists inside the set, do nothing.
+
+func (s *Set) Clear()
+    Remove all items from the set, making it empty.
+
+func (s *Set) Contains(item interface{}) bool
+    Check whether item is contained in the set.
+
+func (s *Set) Copy() *Set
+    Create and return a shallow copy of this set.
+
+func (s *Set) Difference(other *Set) *Set
+    Return a new Set with elements in set that are not in the other.
+
+func (s *Set) Discard(item interface{})
+    Delete the item from the set, if it's in.
+
+    If the item is not in the set, do nothing.
+
+    See also Remove.
+
+func (s *Set) Equals(other *Set) bool
+    True iff this set has the same members as the other set.
+
+func (s *Set) Intersect(other *Set) *Set
+    Create a new set containing those elements in both this AND another set.
+
+func (s *Set) IsDisjoint(other *Set) bool
+    Tell whether two sets are disjoint - meaning, whether they have no
+    elements in common.
+
+    Returns false if any element exists in both sets; otherwise, return
+    true.
+
+func (s *Set) IsSubsetOf(other *Set) bool
+    True iff every member of this set is in other.
+
+func (s *Set) IsSupersetOf(other *Set) bool
+    True iff every member of other set is in this set.
+
+func (s *Set) Len() int
+    Get the number of items contained in the set.
+
+func (s *Set) Pop() interface{}
+    Remove and return an arbitrary element from the set.
+
+    Panic if set is empty.
+
+func (s *Set) Remove(item interface{})
+    Delete the item from the set, if it's in.
+
+    If the item is not in the set, panic.
+
+    See also Discard.
+
+func (s *Set) Slice() []interface{}
+    Create a slice consisting of the elements in the set.
+
+    Useful if you need to pass the set data to a function that requires a
+    slice.
+
+    The order is undefined. See also Sorted.
+
+func (s *Set) Sorted() []string
+    Create a slice consisting of elements in the set, sorted.
+
+    The set type allows mixed types, which raises questions about
+    comparision. What Sorted does is render each element as a string, and
+    then sorts them lexicographically. If you need a different ordering -
+    for example, your set contains just integers, and you want them sorted
+    numerically - use Slice and then sort it directly.
+
+func (s *Set) SymmetricDifference(other *Set) *Set
+    Return a new set that is the symmetric difference of this and the other.
+
+    In other words: Return a new set with elements in either the first OR
+    second set, but not both.
+
+func (s *Set) Union(other *Set) *Set
+    Create a new set containing those elements in this set OR another set.
+
+
+
 
 LICENSE
 
