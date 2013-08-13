@@ -218,7 +218,7 @@ Return a new Set with elements in set that are not in the other.
 func (s *Set) Difference(other *Set) *Set {
 	diff := NewSet()
 	for item, _ := range s.items {
-		if ! other.Contains(s) {
+		if ! other.Contains(item) {
 			diff.Add(item)
 		}
 	}

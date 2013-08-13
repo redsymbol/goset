@@ -117,7 +117,7 @@ func TestDifference(t *testing.T) {
 	actual1 := first.Difference(second)
 	Assert(t, expected1.Equals(actual1))
 
-	expected2 := NewSet(2, 4)
+	expected2 := NewSet(3, 6)
 	actual2 := second.Difference(first)
 	Assert(t, expected2.Equals(actual2))
 }
