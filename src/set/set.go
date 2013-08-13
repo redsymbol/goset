@@ -258,3 +258,12 @@ func (s *Set) SymmetricDifference(other *Set) *Set {
 	intersect := s.Intersect(other)
 	return union.Difference(intersect)
 }
+
+/*
+Tell whether two sets are disjoint - meaning, whether they have no elements in common.
+
+Returns false if any element exists in both sets; otherwise, return true.
+*/
+func (s *Set) IsDisjoint(other *Set) bool {
+	return s.Intersect(other).Len() == 0
+}

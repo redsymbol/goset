@@ -154,3 +154,12 @@ func TestSymmetricDifference(t *testing.T) {
 	Assert(t, expected.Equals(actual1))
 	Assert(t, expected.Equals(actual2))
 }
+
+func TestIsDisjoint(t *testing.T) {
+	foo := NewSet(2, 3, 6, 7)
+	bar := NewSet(3, 6, 9, 12)
+	baz := NewSet(101, 202, 303)
+
+	Assert(t, foo.IsDisjoint(baz))
+	Assert(t, ! foo.IsDisjoint(bar))
+}
