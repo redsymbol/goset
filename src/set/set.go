@@ -245,3 +245,16 @@ Remove all items from the set, making it empty.
 func (s *Set) Clear() {
 	s.items = make(map[interface{}]*struct{})
 }
+
+/*
+Return a new set that is the symmetric difference of this and the other.
+
+In other words: Return a new set with elements in either the first OR
+second set, but not both.
+
+*/
+func (s *Set) SymmetricDifference(other *Set) *Set {
+	union := s.Union(other)
+	intersect := s.Intersect(other)
+	return union.Difference(intersect)
+}

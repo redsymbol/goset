@@ -144,3 +144,13 @@ func TestClear(t *testing.T) {
 	foo.Clear()
 	Assert(t, foo.Len() == 0)
 }
+
+func TestSymmetricDifference(t *testing.T) {
+	foo := NewSet(2, 3, 6, 7)
+	bar := NewSet(3, 6, 9, 12)
+	expected := NewSet(2, 7, 9, 12)
+	actual1 := foo.SymmetricDifference(bar)
+	actual2 := bar.SymmetricDifference(foo)
+	Assert(t, expected.Equals(actual1))
+	Assert(t, expected.Equals(actual2))
+}
