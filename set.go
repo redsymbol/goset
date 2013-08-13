@@ -3,6 +3,7 @@ package set
 import (
 	"fmt"
 	"sort"
+	"strings"
 )
 
 /*
@@ -149,7 +150,7 @@ numerically - use Slice and then sort it directly.
 
 */
 func (s *Set) Sorted() []string {
-	strslice := make([]string, len(s.items))
+	strslice := make([]string, s.Len())
 	for ii, val := range s.Slice() {
 		switch val.(type) {
 		case string:
@@ -266,4 +267,24 @@ Returns false if any element exists in both sets; otherwise, return true.
 */
 func (s *Set) IsDisjoint(other *Set) bool {
 	return s.Intersect(other).Len() == 0
+}
+
+/*
+Represet the set as a string.
+*/
+func (s *Set) String() string {
+	strvals := make([]string, 0)
+	othervals := make([]string, 0)
+	for _, val := range s.Slice() {
+		switch val.(type) {
+		case string:
+			strvals = append(strvals, fmt.Sprintf("%#v", val))
+		default:
+			othervals = append(othervals, fmt.Sprintf("%#v", val))
+		}
+	}
+	sort.Strings(strvals)
+	sort.Strings(othervals)
+	allvals := append(strvals, othervals...)
+	return "Set{" + strings.Join(allvals, ", ") + "}"
 }

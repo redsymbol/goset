@@ -163,3 +163,10 @@ func TestIsDisjoint(t *testing.T) {
 	Assert(t, foo.IsDisjoint(baz))
 	Assert(t, ! foo.IsDisjoint(bar))
 }
+
+func TestToString(t *testing.T) {
+	foo := NewSet("beta", 42, "alpha", "delta")
+	expected := "Set{\"alpha\", \"beta\", \"delta\", 42}"
+	actual := foo.String()
+	Assert(t, expected == actual)
+}

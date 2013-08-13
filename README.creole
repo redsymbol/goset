@@ -144,6 +144,9 @@ func (s *Set) Sorted() []string
     for example, your set contains just integers, and you want them sorted
     numerically - use Slice and then sort it directly.
 
+func (s *Set) String() string
+    Represet the set as a string.
+
 func (s *Set) SymmetricDifference(other *Set) *Set
     Return a new set that is the symmetric difference of this and the other.
 
@@ -152,9 +155,7 @@ func (s *Set) SymmetricDifference(other *Set) *Set
 
 func (s *Set) Union(other *Set) *Set
     Create a new set containing those elements in this set OR another set.
-
 }}}
-
 
 LICENSE
 
