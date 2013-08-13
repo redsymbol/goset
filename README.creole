@@ -10,7 +10,9 @@ how to get in touch.
 
 INSTALLATION
 
+{{{
 go get github.com/redsymbol/goset
+}}}
 
 USAGE
 
@@ -40,10 +42,11 @@ func main() {
 }
 }}}
 
-At the moment, operations are NOT atomic, meaning it is not
-necessarily safe to access a set from multiple goroutines. This will
-likely change in the future, with an optional synchronized version of
-the set type.
+At the moment, operations are not atomic: it is not safe to
+concurrently access a set from multiple goroutines. This may change in
+the future, with an optional synchronized version of the set type. In
+the meantime, take care to manually place locks around operations when
+necessary.
 
 REFERENCE
 
