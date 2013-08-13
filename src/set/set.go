@@ -224,3 +224,17 @@ func (s *Set) Difference(other *Set) *Set {
 	}
 	return diff
 }
+
+/*
+Remove and return an arbitrary element from the set.
+
+Panic if set is empty.
+*/
+func (s *Set) Pop() interface{} {
+	var item interface{}
+	for item, _ = range s.items {
+		break
+	}
+	delete(s.items, item)
+	return item
+}

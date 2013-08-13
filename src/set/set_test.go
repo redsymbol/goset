@@ -121,3 +121,19 @@ func TestDifference(t *testing.T) {
 	actual2 := second.Difference(first)
 	Assert(t, expected2.Equals(actual2))
 }
+
+func TestPop(t *testing.T) {
+	foo := NewSet(42)
+	popped := foo.Pop()
+	Assert(t, 42 == popped)
+	Assert(t, 0 == foo.Len())
+
+	bar := NewSet(2, 3, 4)
+	Assert(t, 3 == bar.Len())
+	bar.Pop()
+	Assert(t, 2 == bar.Len())
+	bar.Pop()
+	Assert(t, 1 == bar.Len())
+	bar.Pop()
+	Assert(t, 0 == bar.Len())
+}
