@@ -108,3 +108,16 @@ func TestCopy(t *testing.T) {
 
 	Assert(t, src.Equals(clone))
 }
+
+func TestDifference(t *testing.T) {
+	first := NewSet(2, 4, 8)
+	second := NewSet(3, 6, 8)
+
+	expected1 := NewSet(2, 4)
+	actual1 := first.Difference(second)
+	Assert(t, expected1.Equals(actual1))
+
+	expected2 := NewSet(2, 4)
+	actual2 := second.Difference(first)
+	Assert(t, expected2.Equals(actual2))
+}

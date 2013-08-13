@@ -211,3 +211,16 @@ func (s *Set) Equals(other *Set) bool {
 	}
 	return false
 }
+
+/*
+Return a new Set with elements in set that are not in the other.
+*/
+func (s *Set) Difference(other *Set) *Set {
+	diff := NewSet()
+	for item, _ := range s.items {
+		if ! other.Contains(s) {
+			diff.Add(item)
+		}
+	}
+	return diff
+}
