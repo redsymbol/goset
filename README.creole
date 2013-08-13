@@ -34,6 +34,9 @@ func main() {
      if fooAndBar.Contains("delta") {
          fmt.Println("delta in both foo and bar")
      }
+     if fooOrBar.Contains("delta") {
+         fmt.Println("delta in at least one of foo or bar")
+     }
 }
 }}}
 
