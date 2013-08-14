@@ -24,9 +24,9 @@ import (
 )
 
 func main() {
-     // Always create new sets with set.NewSet
-     foo := set.NewSet("alpha", "delta")
-     bar := set.NewSet("gamma", "delta", "eta")
+     // Always create new sets with set.New
+     foo := set.New("alpha", "delta")
+     bar := set.New("gamma", "delta", "eta")
      foo.Add("epsilon")
      // sets can accept members of any type
      foo.Add(42)
@@ -56,20 +56,20 @@ type Set struct {
 }
     Basic set type.
 
-    Rather than instantiating directly, create new set objects with NewSet.
+    Rather than instantiating directly, create new set objects with New.
 
     Not safe for concurrent access, so you must wrap operations with a lock
     if accessing from multiple goroutines.
 
 
-func NewSet(items ...interface{}) *Set
+func New(items ...interface{}) *Set
     Create a new Set object. Arguments ITEMS... will be the initial members
     of the set.
 
 	Examples:
-	   emptySet := NewSet()
-	   intsSet  := NewSet(7, 12, 42)
-	   mixedSet := NewSet("foo", "bar", 42, 2.818)
+	   emptySet := New()
+	   intsSet  := New(7, 12, 42)
+	   mixedSet := New("foo", "bar", 42, 2.818)
 
 
 func (s *Set) Add(item interface{})

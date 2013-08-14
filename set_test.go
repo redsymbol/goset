@@ -26,14 +26,14 @@ func AssertSliceEqual(t *testing.T, a *[]string, b *[]string) {
 }
 
 func TestSetString(t *testing.T) {
-	bag := NewSet("delta", "alpha")
+	bag := New("delta", "alpha")
 	Assert(t, bag.Contains("alpha"))
 	Assert(t, !bag.Contains("epsilon"))
 	bag.Add("epsilon")
 	Assert(t, bag.Contains("epsilon"))
 	Assert(t, 3 == bag.Len())
 
-	bar := NewSet("gamma", "delta", "eta")
+	bar := New("gamma", "delta", "eta")
 	Assert(t, bar.Contains("eta"))
 	bar.Remove("eta")
 	bar.Discard("eta")
@@ -51,7 +51,7 @@ func TestSetString(t *testing.T) {
 }
 
 func TestSetMixed(t *testing.T) {
-	bag := NewSet("alpha", 42)
+	bag := New("alpha", 42)
 	bag.Add(32)
 	bag.Add("beta")
 	bag.Add(2.7)
@@ -75,10 +75,10 @@ func TestSetMixed(t *testing.T) {
 }
 
 func TestSubset(t *testing.T) {
-	alpha := NewSet(7, 3, 2, 1)
-	beta := NewSet(7, 2)
-	gamma := NewSet(7, 3, 2, 9)
-	empty := NewSet()
+	alpha := New(7, 3, 2, 1)
+	beta := New(7, 2)
+	gamma := New(7, 3, 2, 9)
+	empty := New()
 
 	Assert(t, beta.IsSubsetOf(alpha))
 	Assert(t, alpha.IsSupersetOf(beta))
@@ -91,10 +91,10 @@ func TestSubset(t *testing.T) {
 }
 
 func TestEquals(t *testing.T) {
-	alpha := NewSet(2, 3, 4, 5)
-	beta := NewSet(2, 4, 3, 5)
-	gamma := NewSet(2, 3, 4)
-	delta := NewSet(2, 3, 4, 5, 6)
+	alpha := New(2, 3, 4, 5)
+	beta := New(2, 4, 3, 5)
+	gamma := New(2, 3, 4)
+	delta := New(2, 3, 4, 5, 6)
 
 	Assert(t, alpha.Equals(beta))
 	Assert(t, beta.Equals(alpha))
@@ -103,32 +103,32 @@ func TestEquals(t *testing.T) {
 }
 
 func TestCopy(t *testing.T) {
-	src := NewSet(4, 7, "foo", "bar")
+	src := New(4, 7, "foo", "bar")
 	clone := src.Copy()
 
 	Assert(t, src.Equals(clone))
 }
 
 func TestDifference(t *testing.T) {
-	first := NewSet(2, 4, 8)
-	second := NewSet(3, 6, 8)
+	first := New(2, 4, 8)
+	second := New(3, 6, 8)
 
-	expected1 := NewSet(2, 4)
+	expected1 := New(2, 4)
 	actual1 := first.Difference(second)
 	Assert(t, expected1.Equals(actual1))
 
-	expected2 := NewSet(3, 6)
+	expected2 := New(3, 6)
 	actual2 := second.Difference(first)
 	Assert(t, expected2.Equals(actual2))
 }
 
 func TestPop(t *testing.T) {
-	foo := NewSet(42)
+	foo := New(42)
 	popped := foo.Pop()
 	Assert(t, 42 == popped)
 	Assert(t, 0 == foo.Len())
 
-	bar := NewSet(2, 3, 4)
+	bar := New(2, 3, 4)
 	Assert(t, 3 == bar.Len())
 	bar.Pop()
 	Assert(t, 2 == bar.Len())
@@ -139,16 +139,16 @@ func TestPop(t *testing.T) {
 }
 
 func TestClear(t *testing.T) {
-	foo := NewSet(2, 4, 6, 8, "who do we appreciate")
+	foo := New(2, 4, 6, 8, "who do we appreciate")
 	Assert(t, foo.Len() > 0)
 	foo.Clear()
 	Assert(t, foo.Len() == 0)
 }
 
 func TestSymmetricDifference(t *testing.T) {
-	foo := NewSet(2, 3, 6, 7)
-	bar := NewSet(3, 6, 9, 12)
-	expected := NewSet(2, 7, 9, 12)
+	foo := New(2, 3, 6, 7)
+	bar := New(3, 6, 9, 12)
+	expected := New(2, 7, 9, 12)
 	actual1 := foo.SymmetricDifference(bar)
 	actual2 := bar.SymmetricDifference(foo)
 	Assert(t, expected.Equals(actual1))
@@ -156,16 +156,16 @@ func TestSymmetricDifference(t *testing.T) {
 }
 
 func TestIsDisjoint(t *testing.T) {
-	foo := NewSet(2, 3, 6, 7)
-	bar := NewSet(3, 6, 9, 12)
-	baz := NewSet(101, 202, 303)
+	foo := New(2, 3, 6, 7)
+	bar := New(3, 6, 9, 12)
+	baz := New(101, 202, 303)
 
 	Assert(t, foo.IsDisjoint(baz))
 	Assert(t, ! foo.IsDisjoint(bar))
 }
 
 func TestToString(t *testing.T) {
-	foo := NewSet("beta", 42, "alpha", "delta")
+	foo := New("beta", 42, "alpha", "delta")
 	expected := "Set{\"alpha\", \"beta\", \"delta\", 42}"
 	actual := foo.String()
 	Assert(t, expected == actual)

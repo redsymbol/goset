@@ -9,7 +9,7 @@ import (
 /*
 Basic set type.
 
-Rather than instantiating directly, create new set objects with NewSet.
+Rather than instantiating directly, create new set objects with New.
 
 Not safe for concurrent access, so you must wrap operations with a
 lock if accessing from multiple goroutines.
@@ -23,12 +23,12 @@ type Set struct {
 Create a new Set object. Arguments ITEMS... will be the initial members of the set.
 
   Examples:
-     emptySet := NewSet()
-     intsSet  := NewSet(7, 12, 42)
-     mixedSet := NewSet("foo", "bar", 42, 2.818)
+     emptySet := New()
+     intsSet  := New(7, 12, 42)
+     mixedSet := New("foo", "bar", 42, 2.818)
 
 */
-func NewSet(items ...interface{}) *Set {
+func New(items ...interface{}) *Set {
 	s := Set{
 		make(map[interface{}]*struct{}),
 	}
@@ -97,7 +97,7 @@ Create a new set containing those elements in both this AND another set.
 
 */
 func (s *Set) Intersect(other *Set) *Set {
-	newset := NewSet()
+	newset := New()
 	for item, _ := range s.items {
 		if other.Contains(item) {
 			newset.Add(item)
@@ -111,7 +111,7 @@ Create a new set containing those elements in this set OR another set.
 
 */
 func (s *Set) Union(other *Set) *Set {
-	newset := NewSet()
+	newset := New()
 	for item, _ := range s.items {
 		newset.Add(item)
 	}
@@ -191,7 +191,7 @@ func (s *Set) IsSupersetOf(other *Set) bool {
 Create and return a shallow copy of this set.
 */
 func (s *Set) Copy() *Set {
-	clone := NewSet()
+	clone := New()
 	for item, _ := range s.items {
 		clone.Add(item)
 	}
@@ -217,7 +217,7 @@ func (s *Set) Equals(other *Set) bool {
 Return a new Set with elements in set that are not in the other.
 */
 func (s *Set) Difference(other *Set) *Set {
-	diff := NewSet()
+	diff := New()
 	for item, _ := range s.items {
 		if ! other.Contains(item) {
 			diff.Add(item)
